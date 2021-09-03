@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mms
+  namespace: kubesphere-sample-dev
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: mms
+  template:
+    metadata:
+      labels:
+        app: mms
+    spec:
+      containers:
+        - image: $REGISTRY/$HARBOR_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_FLAG
+          name: mms
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http
+#      imagePullSecrets:
+#        - name: docker-harbor-cv
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mms
+  namespace: kubesphere-sample-dev
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      nodePort: 30863
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: mms

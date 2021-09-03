@@ -1,4 +1,4 @@
-# MMS(医药管理信息系统)
+流水线
 ## 详细
 * 具体功能模块的实现在[博客](http://blog.csdn.net/qq_35442958/article/details/79244290 "CSDN博客")中有说明
 * 技术栈：spring+springMVC+mybatis+easyui
