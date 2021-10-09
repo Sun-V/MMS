@@ -10,7 +10,7 @@ pipeline {
     stage('git-clone') {
       agent none
       steps {
-        git(url: 'https://gitlab.test.sugon.tech/groupsjq/mms', credentialsId: 'gitlab', changelog: true, poll: false)
+        git(url: 'https://github.com/Sun-V/MMS.git', credentialsId: 'github', changelog: true, poll: false)
       }
     }
 
@@ -40,7 +40,7 @@ pipeline {
         container('maven') {
           withCredentials([string(credentialsId : 'sonar' ,variable : 'SONAR_TOKEN' ,)]) {
             withSonarQubeEnv('sonar') {
-              sh 'mvn sonar:sonar -Dsonar.projectKey=mms  -Dsonar.host.url=https://sonar.test.sugon.tech -Dsonar.login=$SONAR_TOKEN'
+              sh 'mvn sonar:sonar -Dsonar.projectKey=mms  -Dsonar.host.url=https://sonar.xxx.tech -Dsonar.login=$SONAR_TOKEN'
             }
 
           }
@@ -85,7 +85,7 @@ pipeline {
   environment {
     BRANCH_NAME = 'dev'
     APP_NAME = 'mms'
-    REGISTRY = 'harbor.test.sugon.tech'
+    REGISTRY = 'harbor.xxx.tech'
 
     HARBOR_NAMESPACE = 'test'
     HARBOR_CREDENTIAL = credentials('harbor-s')
